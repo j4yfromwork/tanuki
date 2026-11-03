@@ -1,0 +1,6 @@
+# Endpoints for `tanuki --scan`. One per line; # comments ignored.
+http://127.0.0.1:5000/api/user
+http://127.0.0.1:5000/api/admin
+http://127.0.0.1:5000/api/hs256
+http://127.0.0.1:5000/api/kid
+http://127.0.0.1:5000/api/secure

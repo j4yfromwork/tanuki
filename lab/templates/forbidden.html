@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}403 — admin only{% endblock %}
+{% block content %}
+<div class="card card-narrow">
+  <h1 class="deny">403 — admin only</h1>
+  <p>This area is restricted to administrators. Your session token is
+    <span class="role role-{{ role }}">{{ role }}</span> (user <code>{{ user }}</code>),
+    so access is denied.</p>
+  <p class="muted">Forge a token with <code>role=admin</code> (or
+    <code>sub=administrator</code>) and swap it into the <code>session</code> cookie
+    to get in — that's the exercise.</p>
+  <a class="btn" href="{{ url_for('dashboard') }}">← Back to dashboard</a>
+</div>
+{% endblock %}

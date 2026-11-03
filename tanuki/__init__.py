@@ -1,0 +1,138 @@
+"""tanuki — JWT Attack Automator (installable package wrapper).
+
+The whole tool lives in a single self-contained module, ``tanuki/tanuki.py``,
+so pentesters can still copy that one file onto a box and run it directly
+(``python3 tanuki.py <TOKEN> ...``). This package is only a thin wrapper that
+makes the same code ``pip install``-able with a ``tanuki`` console entry point
+and importable (``import tanuki``) for the test-suite.
+"""
+
+from .tanuki import (  # noqa: F401
+    __doc__ as _tool_doc,
+    # parsing / crypto helpers
+    JWT,
+    b64url_encode,
+    b64url_decode,
+    encode_segment,
+    # payload helpers
+    suggest_modifications,
+    parse_custom_claims,
+    PRIV_CLAIMS,
+    # attacks
+    attack_alg_none,
+    attack_key_confusion,
+    attack_jwk_injection,
+    attack_jku_injection,
+    build_jku_hosting_kit,
+    print_jku_hosting_kit,
+    attack_kid_injection,
+    # PlainJWT-in-JWE (CVE-2026-29000)
+    attack_plainjwt_in_jwe,
+    build_jwe,
+    JWE_KEY_ALGS,
+    JWE_ENCS,
+    # cracking
+    crack_secret,
+    resign_hs256,
+    HASHCAT_MODE,
+    # jwks
+    discover_jwks,
+    jwks_to_pem,
+    jwks_to_pem_and_kid,
+    fetch_jwks_url,
+    # rsa public-key recovery (GCD-of-signatures)
+    derive_public_key,
+    recover_modulus,
+    recover_modulus_timed,
+    rsa_public_pems,
+    run_key_recovery,
+    # passive endpoint discovery
+    Surface,
+    discover_endpoints,
+    import_endpoints,
+    gather_surface,
+    surface_scan_targets,
+    print_surface,
+    API_SPEC_PATHS,
+    # request parsing / replay
+    HTTPRequest,
+    parse_request_file,
+    replay,
+    replay_request,
+    Target,
+    build_replay_targets,
+    classify,
+    REJECT_STATUSES,
+    # presentation layer
+    Presenter,
+    demo_banner,
+    demo_whatwedo,
+    demo_verdict,
+    demo_before_after,
+    figlet_available,
+    # entry point
+    run,
+    main,
+    build_parser,
+    C,
+)
+
+__all__ = [
+    "JWT",
+    "b64url_encode",
+    "b64url_decode",
+    "encode_segment",
+    "suggest_modifications",
+    "parse_custom_claims",
+    "PRIV_CLAIMS",
+    "attack_alg_none",
+    "attack_key_confusion",
+    "attack_jwk_injection",
+    "attack_jku_injection",
+    "build_jku_hosting_kit",
+    "print_jku_hosting_kit",
+    "attack_kid_injection",
+    "attack_plainjwt_in_jwe",
+    "build_jwe",
+    "JWE_KEY_ALGS",
+    "JWE_ENCS",
+    "crack_secret",
+    "resign_hs256",
+    "HASHCAT_MODE",
+    "discover_jwks",
+    "jwks_to_pem",
+    "jwks_to_pem_and_kid",
+    "fetch_jwks_url",
+    "derive_public_key",
+    "recover_modulus",
+    "recover_modulus_timed",
+    "rsa_public_pems",
+    "run_key_recovery",
+    "Surface",
+    "discover_endpoints",
+    "import_endpoints",
+    "gather_surface",
+    "surface_scan_targets",
+    "print_surface",
+    "API_SPEC_PATHS",
+    "HTTPRequest",
+    "parse_request_file",
+    "replay",
+    "replay_request",
+    "Target",
+    "build_replay_targets",
+    "classify",
+    "REJECT_STATUSES",
+    "Presenter",
+    "demo_banner",
+    "demo_whatwedo",
+    "demo_verdict",
+    "demo_before_after",
+    "figlet_available",
+    "run",
+    "main",
+    "build_parser",
+    "C",
+]
+
+__version__ = "1.0.0"

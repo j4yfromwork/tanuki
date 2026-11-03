@@ -1,0 +1,3 @@
+# Dev / test dependencies. Installs the runtime set too.
+-r requirements.txt
+pytest>=7.0

@@ -1,0 +1,15 @@
+# Runtime dependencies to run BOTH the tanuki tool and the lab target.
+# (tanuki itself degrades gracefully without requests/cryptography, but the
+#  full attack set and the lab need everything below.)
+flask>=3.0
+cryptography>=3.4
+PyJWT>=2.8
+requests>=2.25
+
+# gmpy2 accelerates RSA key recovery (--derive-key). The costly step is an
+# unmodulated sig**65537 + GCD of multi-megabit integers; under GMP a 2048-bit
+# recovery takes ~seconds instead of ~hours. PyPI ships manylinux wheels that
+# bundle GMP/MPFR/MPC, so `pip install` normally needs no system libraries; a
+# source build needs libgmp-dev libmpfr-dev libmpc-dev (`make install` handles
+# this on Kali). tanuki imports it optionally and still runs without it.
+gmpy2>=2.1

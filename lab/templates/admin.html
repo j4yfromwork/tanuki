@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Admin panel{% endblock %}
+{% block content %}
+{% if lab_state.solved %}
+<div class="solved">✅ LAB SOLVED — administrator access obtained and {{ win_target }} deleted.</div>
+{% endif %}
+
+<div class="card">
+  <h1>Admin panel</h1>
+  <p class="muted">Signed in as {{ user }} ·
+    <span class="role role-admin">admin</span></p>
+  <p class="win-hint">Win condition: delete user <code>{{ win_target }}</code>.</p>
+
+  <table class="users">
+    <thead><tr><th>User</th><th>Role</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ u }}</td>
+        <td>{{ 'admin' if u == 'administrator' else 'user' }}</td>
+        <td>active</td>
+        <td>
+          <form method="post" action="{{ url_for('admin_delete', username=u) }}">
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Settings</h2>
+  <label class="toggle"><input type="checkbox" checked disabled> Require MFA for all users</label>
+  <label class="toggle"><input type="checkbox" disabled> Allow public project sharing</label>
+  <label class="toggle"><input type="checkbox" checked disabled> Audit logging</label>
+</div>
+{% endblock %}

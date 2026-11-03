@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Acme Cloud{% endblock %} · Acme Cloud Console</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand"><span class="logo">▲</span>Acme Cloud <span class="env">Console</span></div>
+    <div class="navlinks">
+      {% if inspector.present and inspector.ok %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('admin_panel') }}">Admin</a>
+        <span class="who">{{ inspector.sub }} ·
+          <span class="role role-{{ inspector.role }}">{{ inspector.role }}</span></span>
+        <a class="btn-ghost btn" href="{{ url_for('logout') }}">Log out</a>
+      {% else %}
+        <a href="{{ url_for('login_page') }}">Sign in</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Live token inspector: decodes the current `session` cookie for display.
+       Decode-and-display ONLY — it performs no verification. -->
+  <aside class="inspector">
+    <div class="insp-title">🔎 TOKEN INSPECTOR</div>
+    {% if not inspector.present %}
+      <div class="insp-empty">no session token</div>
+    {% elif not inspector.ok %}
+      <div class="insp-empty">session cookie is not a decodable JWT</div>
+    {% else %}
+      <dl>
+        <dt>alg</dt><dd>{{ inspector.alg }}</dd>
+        <dt>sub</dt><dd>{{ inspector.sub }}</dd>
+        <dt>role</dt><dd><span class="role role-{{ inspector.role }}">{{ inspector.role }}</span></dd>
+      </dl>
+      <div class="insp-note">decoded from the <code>session</code> cookie — not verified</div>
+    {% endif %}
+  </aside>
+</body>
+</html>

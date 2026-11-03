@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="grid">
+  <section class="card">
+    <h1>Welcome back, {{ user }}</h1>
+    <p class="muted">You are signed in as
+      <span class="role role-{{ role }}">{{ role }}</span>.</p>
+    <div class="profile">
+      <div class="avatar">{{ (user[0] if user else '?')|upper }}</div>
+      <dl class="kv">
+        <dt>Account</dt><dd>{{ user }}@acme.example</dd>
+        <dt>Plan</dt><dd>Team — 14 seats</dd>
+        <dt>Role</dt><dd><span class="role role-{{ role }}">{{ role }}</span></dd>
+        <dt>Member since</dt><dd>2023-04-11</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Your workspace</h2>
+    <div class="tiles">
+      <div class="tile"><div class="tile-num">3</div>Projects</div>
+      <div class="tile"><div class="tile-num">12</div>Deployments</div>
+      <div class="tile"><div class="tile-num">1.4 TB</div>Storage used</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Administration</h2>
+    {% if is_admin %}
+      <p>Your token grants administrator access.</p>
+      <a class="btn" href="{{ url_for('admin_panel') }}">Open admin panel →</a>
+    {% else %}
+      <p class="muted">The admin panel is restricted to administrators. Your token's role is
+        <span class="role role-{{ role }}">{{ role }}</span>, so it's locked.</p>
+      <a class="btn btn-disabled" href="{{ url_for('admin_panel') }}">Admin panel (locked)</a>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

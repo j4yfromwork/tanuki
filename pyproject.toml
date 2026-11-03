@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tanuki"
+version = "1.0.0"
+description = "JWT Attack Automator — runs every viable JWT attack against a token in one pass. Authorised security testing only."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+keywords = ["jwt", "security", "pentest", "ctf", "appsec"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "Environment :: Console",
+]
+
+# The tool degrades gracefully without these, but a normal install should have
+# them so key-confusion / jwk / jku attacks and live replay all work.
+dependencies = [
+    "requests>=2.25",
+    "cryptography>=3.4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+tanuki = "tanuki.tanuki:main"
+
+[project.urls]
+Homepage = "https://example.invalid/tanuki"
+
+[tool.setuptools]
+# Package the tool only. `lab/` is the deliberately-vulnerable target app and is
+# intentionally NOT shipped as part of the installable tool.
+packages = ["tanuki"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "hashcat: test exercises the real hashcat cracking backend",
+    "john: test exercises the real john cracking backend",
+]

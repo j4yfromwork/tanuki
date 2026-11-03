@@ -1,0 +1,7 @@
+GET /api/me HTTP/1.1
+Host: api.target.com
+User-Agent: Mozilla/5.0
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImtleS0xIn0.eyJzdWIiOiJ1c2VyIiwicm9sZSI6InVzZXIifQ.SIGNATURE
+Accept: application/json
+Connection: close
+

@@ -1,0 +1,136 @@
+/* jwt-demo-lab — browsable web frontend (a plausible SaaS console theme).
+   Cosmetic only; the vulnerabilities live in lab/app.py's verify functions. */
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --panel-2: #1c2430;
+  --border: #2b3139;
+  --text: #c9d1d9;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-2: #79c0ff;
+  --good: #3fb950;
+  --bad: #f85149;
+  --warn: #d29922;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { background: var(--panel-2); border: 1px solid var(--border);
+       border-radius: 5px; padding: 1px 5px; font-size: 0.9em; }
+
+/* ── nav bar ── */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px; background: #10151c;
+  border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10;
+}
+.brand { font-weight: 700; font-size: 1.1rem; letter-spacing: .2px; }
+.brand .logo { color: var(--accent); margin-right: 6px; }
+.brand .env { color: var(--muted); font-weight: 500; }
+.navlinks { display: flex; align-items: center; gap: 18px; }
+.navlinks .who { color: var(--muted); font-size: .9rem; }
+
+/* ── layout ── */
+.wrap { max-width: 960px; margin: 32px auto; padding: 0 24px 120px; }
+.grid { display: grid; gap: 20px; }
+.card {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 12px; padding: 22px 24px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.3);
+}
+.card-narrow { max-width: 420px; margin: 48px auto; }
+h1 { margin: 0 0 6px; color: #fff; font-size: 1.6rem; }
+h2 { margin: 0 0 12px; color: var(--accent-2); font-size: 1.15rem; }
+.muted { color: var(--muted); }
+.hint { color: var(--muted); font-size: .88rem; margin-top: 18px; }
+
+/* ── profile / data ── */
+.profile { display: flex; gap: 20px; align-items: center; margin-top: 10px; }
+.avatar {
+  width: 64px; height: 64px; border-radius: 50%; flex: none;
+  background: linear-gradient(135deg, var(--accent), #1f6feb);
+  color: #fff; font-size: 1.8rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+dl.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; margin: 0; }
+dl.kv dt { color: var(--muted); }
+dl.kv dd { margin: 0; }
+
+.tiles { display: flex; gap: 16px; flex-wrap: wrap; }
+.tile {
+  flex: 1 1 140px; background: var(--panel-2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px; color: var(--muted); font-size: .9rem;
+}
+.tile-num { font-size: 1.7rem; color: #fff; font-weight: 700; }
+
+/* ── role badges ── */
+.role {
+  display: inline-block; padding: 1px 9px; border-radius: 999px;
+  font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px;
+}
+.role-user { background: #1f2a37; color: var(--accent-2); }
+.role-admin { background: #3b1d1d; color: var(--bad); }
+
+/* ── buttons ── */
+.btn {
+  display: inline-block; background: var(--accent); color: #0d1117;
+  border: none; border-radius: 8px; padding: 9px 16px; font-weight: 600;
+  cursor: pointer; font-size: .95rem;
+}
+.btn:hover { background: var(--accent-2); text-decoration: none; }
+.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+.btn-disabled { background: #30363d; color: var(--muted); pointer-events: none; }
+.btn-danger { background: #3b1d1d; color: var(--bad); border: 1px solid var(--bad); padding: 5px 12px; }
+.btn-danger:hover { background: var(--bad); color: #fff; }
+form.inline, td form { margin: 0; display: inline; }
+
+label { display: block; margin: 12px 0; color: var(--muted); font-size: .9rem; }
+input[type=text], input[name=username], input[name=password] {
+  display: block; width: 100%; margin-top: 5px; padding: 9px 11px;
+  background: var(--panel-2); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 1rem;
+}
+.toggle { display: flex; align-items: center; gap: 8px; color: var(--text); }
+
+/* ── tables ── */
+table.users { border-collapse: collapse; width: 100%; margin-top: 8px; }
+table.users th, table.users td {
+  text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border);
+}
+table.users th { color: var(--muted); font-size: .8rem; text-transform: uppercase; }
+
+/* ── alerts / banners ── */
+.alert { background: #3b1d1d; border: 1px solid var(--bad); color: #ffb4ae;
+         padding: 10px 14px; border-radius: 8px; margin: 14px 0; }
+.deny { color: var(--bad); }
+.win-hint { color: var(--warn); font-size: .9rem; }
+.solved {
+  background: linear-gradient(90deg, #0f2a16, #123a1d);
+  border: 1px solid var(--good); color: #8ff0a4;
+  padding: 16px 20px; border-radius: 12px; margin-bottom: 20px;
+  font-size: 1.15rem; font-weight: 700;
+}
+
+/* ── live token inspector (fixed, visible on every page) ── */
+.inspector {
+  position: fixed; right: 20px; bottom: 20px; width: 260px;
+  background: #0b0f14; border: 1px solid var(--accent);
+  border-radius: 12px; padding: 14px 16px; z-index: 50;
+  box-shadow: 0 8px 28px rgba(0,0,0,.55);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.insp-title { color: var(--accent); font-weight: 700; font-size: .78rem;
+              letter-spacing: .6px; margin-bottom: 10px; }
+.inspector dl { display: grid; grid-template-columns: 46px 1fr; gap: 4px 10px; margin: 0; }
+.inspector dt { color: var(--muted); }
+.inspector dd { margin: 0; color: #fff; word-break: break-all; }
+.insp-empty { color: var(--muted); font-size: .85rem; }
+.insp-note { color: var(--muted); font-size: .72rem; margin-top: 10px; }

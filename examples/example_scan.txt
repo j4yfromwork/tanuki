@@ -1,0 +1,7 @@
+# One endpoint per line. Plain URLs or paths to Burp request files.
+# Lines starting with # are ignored.
+https://api.target.com/user
+https://api.target.com/admin
+https://api.target.com/billing/export
+# saved Burp requests also work:
+# requests/delete_account.txt
